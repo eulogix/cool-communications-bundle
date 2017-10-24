@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--    This file is part of the Eulogix\Cool package.                              -->
+<!--                                                                                -->
+<!--    (c) Eulogix <http://www.eulogix.com/>                                       -->
+<!--                                                                                -->
+<!--    For the full copyright and license information, please view the LICENSE     -->
+<!--    file that was distributed with this source code.                            -->
+
+<database name="cool_db"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://www.w3schools.com Cool/Resources/xsd/cool_database.xsd"
+
+          namespace="Eulogix\Cool\Bundle\CoreBundle\Model\App"
+          baseClass="Eulogix\Cool\Lib\Database\Propel\CoolPropelObject"
+          defaultIdMethod="native"
+        >
+
+    <table name="communication" _editable="true"
+            description="stores stuff sent or received from/to outside like email messages, letters, smss">
+
+        <column name="communication_id" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+
+        <column name="category" type="LONGVARCHAR">
+            <_lookup type="enum" validValues="EMAIL,LETTER,SMS,FAX,OTHER"></_lookup>
+            <_control type="select"></_control>
+        </column>
+
+        <column name="type" type="LONGVARCHAR">
+            <_lookup type="table" validValues="COMMUNICATION_TYPE"></_lookup>
+            <_control type="select"></_control>
+        </column>
+
+        <column name="subject" type="LONGVARCHAR" _fts="true"/>
+
+        <column name="body" type="LONGVARCHAR" _fts="true">
+            <_control type="textarea"></_control>
+        </column>
+
+        <column name="sent_date" type="TIMESTAMP"/>
+        <column name="received_date" type="TIMESTAMP"/>
+
+        <column name="transmission_method" type="LONGVARCHAR"
+                description="communication logs such as emails, phonecalls, log their nature here">
+            <_lookup type="table" domainName="TRANSMISSION_METHOD"/>
+            <_control type="select"></_control>
+        </column>
+
+        <column name="target" type="LONGVARCHAR" _fts="true"
+                description="phonecalls / faxes and the like store here the number called, or the caller"/>
+
+        <column name="inbound_flag" type="BOOLEAN" required="true" default="FALSE"/>
+
+        <behavior name="extendable"/>
+    </table>
+
+</database>
