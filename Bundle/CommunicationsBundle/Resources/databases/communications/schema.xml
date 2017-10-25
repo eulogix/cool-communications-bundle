@@ -10,13 +10,13 @@
 <database name="cool_db"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://www.w3schools.com Cool/Resources/xsd/cool_database.xsd"
-
-          namespace="Eulogix\Cool\Bundle\CoreBundle\Model\App"
-          baseClass="Eulogix\Cool\Lib\Database\Propel\CoolPropelObject"
+          namespace="Eulogix\Cool\Bundle\CommunicationsBundle\Model"
           defaultIdMethod="native"
         >
 
-    <table name="communication" _editable="true"
+    <table  name="communication" _editable="true"
+            namespace="\Eulogix\Cool\Bundle\CommunicationsBundle\Model"
+            baseClass="Eulogix\Cool\Lib\Database\Propel\CoolPropelObject"
             description="stores stuff sent or received from/to outside like email messages, letters, smss">
 
         <column name="communication_id" type="INTEGER" primaryKey="true" autoIncrement="true"/>
@@ -27,7 +27,7 @@
         </column>
 
         <column name="type" type="LONGVARCHAR">
-            <_lookup type="table" validValues="COMMUNICATION_TYPE"></_lookup>
+            <_lookup type="table" domainName="COMMUNICATION_TYPE"></_lookup>
             <_control type="select"></_control>
         </column>
 
@@ -52,6 +52,13 @@
         <column name="inbound_flag" type="BOOLEAN" required="true" default="FALSE"/>
 
         <behavior name="extendable"/>
+        <behavior name="auditable">
+            <parameter name="target" value="EulogixCoolCommunicationsBundle/communications"></parameter>
+        </behavior>
+        <behavior name="notifier">
+            <parameter name="schema" value="communications"></parameter>
+            <parameter name="target" value="EulogixCoolCommunicationsBundle/communications"></parameter>
+        </behavior>
     </table>
 
 </database>
