@@ -3,9 +3,9 @@
         "tables": {
             "communication": {
                 "attributes": {
-                    "propelModelNamespace": "\\Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\Communication",
-                    "propelPeerNamespace": "\\Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\CommunicationPeer",
-                    "propelQueryNamespace": "\\Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\CommunicationQuery",
+                    "propelModelNamespace": "Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\Communication",
+                    "propelPeerNamespace": "Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\CommunicationPeer",
+                    "propelQueryNamespace": "Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\CommunicationQuery",
                     "schema": null,
                     "rawname": "communication",
                     "editable": true

@@ -16,9 +16,9 @@ class BaseDictionary extends \Eulogix\Cool\Lib\Dictionary\Dictionary {
     array (
       'attributes' => 
       array (
-        'propelModelNamespace' => '\\Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\Communication',
-        'propelPeerNamespace' => '\\Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\CommunicationPeer',
-        'propelQueryNamespace' => '\\Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\CommunicationQuery',
+        'propelModelNamespace' => 'Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\Communication',
+        'propelPeerNamespace' => 'Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\CommunicationPeer',
+        'propelQueryNamespace' => 'Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model\\CommunicationQuery',
         'schema' => NULL,
         'rawname' => 'communication',
         'editable' => true,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="cool_db" xsi:noNamespaceSchemaLocation="http://www.w3schools.com Cool/Resources/xsd/cool_database.xsd" namespace="Eulogix\Cool\Bundle\CommunicationsBundle\Model" defaultIdMethod="native">
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="cool_db" xsi:noNamespaceSchemaLocation="http://www.w3schools.com Cool/Resources/xsd/cool_database.xsd" baseClass="Eulogix\Cool\Lib\Database\Propel\CoolPropelObject" namespace="Eulogix\Cool\Bundle\CommunicationsBundle\Model" defaultIdMethod="native">
 
-    <table name="communication" namespace="\Eulogix\Cool\Bundle\CommunicationsBundle\Model" baseClass="Eulogix\Cool\Lib\Database\Propel\CoolPropelObject" description="stores stuff sent or received from/to outside like email messages, letters, smss">
+    <table name="communication" description="stores stuff sent or received from/to outside like email messages, letters, smss">
 
         <column name="communication_id" type="INTEGER" primaryKey="true" autoIncrement="true"/>
 
