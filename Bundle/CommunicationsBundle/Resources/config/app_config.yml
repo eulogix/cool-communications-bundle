@@ -3,4 +3,4 @@
 eulogix_cool_core:
     schemas:
         communications:
-            namespace:  "\\Eulogix\\Cool\\Bundle\\CommunicationsBundle\\Model"
+            namespace:  "\\Eulogix\\AppModules\\Communications"

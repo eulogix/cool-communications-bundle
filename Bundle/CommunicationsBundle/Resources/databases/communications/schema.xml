@@ -10,12 +10,13 @@
 <database name="cool_db"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://www.w3schools.com Cool/Resources/xsd/cool_database.xsd"
-          baseClass="Eulogix\Cool\Lib\Database\Propel\CoolPropelObject"
-          namespace="Eulogix\Cool\Bundle\CommunicationsBundle\Model"
           defaultIdMethod="native"
         >
 
-    <table  name="communication" _editable="true"
+    <table name="communication" _editable="true"
+            baseClass="Eulogix\Cool\Bundle\CommunicationsBundle\Model\RootCommunication"
+            namespace="\Eulogix\AppModules\Communications"
+            package="src.Eulogix.AppModules.Communications"
             description="stores stuff sent or received from/to outside like email messages, letters, smss">
 
         <column name="communication_id" type="INTEGER" primaryKey="true" autoIncrement="true"/>
@@ -51,13 +52,38 @@
         <column name="inbound_flag" type="BOOLEAN" required="true" default="FALSE"/>
 
         <behavior name="extendable"/>
-        <behavior name="auditable">
-            <parameter name="target" value="EulogixCoolCommunicationsBundle/communications"></parameter>
-        </behavior>
-        <behavior name="notifier">
-            <parameter name="schema" value="communications"></parameter>
-            <parameter name="target" value="EulogixCoolCommunicationsBundle/communications"></parameter>
-        </behavior>
+    </table>
+
+    <table name="communication_actor"
+           baseClass="Eulogix\Cool\Bundle\CommunicationsBundle\Model\RootCommunicationActor"
+           namespace="\Eulogix\AppModules\Communications"
+           package="src.Eulogix.AppModules.Communications"
+           description="stores a recipient or sender of the communication, this is a flat table which is supposed to be filled by derived schema entities"
+           _editable="true">
+
+        <column name="communication_actor_id" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="communication_id" type="INTEGER" required="true" _editable="false"/>
+
+        <column name="role" type="LONGVARCHAR" required="true">
+            <_lookup type="enum" validValues="SENDER,RECIPIENT"></_lookup>
+            <_control type="select"></_control>
+        </column>
+
+        <column name="name" type="LONGVARCHAR" _fts="true"/>
+        <column name="address" type="LONGVARCHAR" _fts="true"/>
+        <column name="city" type="LONGVARCHAR" _fts="true"/>
+        <column name="province" type="LONGVARCHAR" _fts="true"/>
+        <column name="region" type="LONGVARCHAR" _fts="true"/>
+        <column name="zip" type="LONGVARCHAR" _fts="true"/>
+        <column name="tel" type="LONGVARCHAR" _fts="true"/>
+        <column name="fax" type="LONGVARCHAR" _fts="true"/>
+        <column name="email" type="LONGVARCHAR" _fts="true"/>
+
+        <foreign-key foreignTable="communication" onDelete="cascade">
+            <reference local="communication_id" foreign="communication_id"/>
+        </foreign-key>
+
+        <behavior name="extendable"/>
     </table>
 
 </database>
