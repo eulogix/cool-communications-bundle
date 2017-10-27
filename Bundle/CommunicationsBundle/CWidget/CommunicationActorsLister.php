@@ -15,11 +15,11 @@ namespace Eulogix\Cool\Bundle\CommunicationsBundle\CWidget;
  * @author Pietro Baricco <pietro@eulogix.com>
  */
 
-use Eulogix\Cool\Bundle\CommunicationsBundle\Lib\DataSource\CommunicationsDataSource;
+use Eulogix\Cool\Bundle\CommunicationsBundle\Lib\DataSource\CommunicationActorsDataSource;
 use Eulogix\Cool\Lib\Cool;
 use Eulogix\Cool\Lib\Lister\Lister;
 
-class CommunicationsLister extends Lister {
+class CommunicationActorsLister extends Lister {
 
     public function __construct($parameters = [])
     {
@@ -32,7 +32,7 @@ class CommunicationsLister extends Lister {
     }
 
     public function getDefaultEditorServerId() {
-        return 'EulogixCoolCommunications/CommunicationEditorForm';
+        return 'EulogixCoolCommunications/CommunicationActorEditorForm';
     }
 
     public function build() {
@@ -45,11 +45,11 @@ class CommunicationsLister extends Lister {
      * @inheritdoc
      */
     public function getId() {
-        return "COOL_COMMUNICATIONS_LISTER";
+        return "COOL_COMMUNICATION_ACTORS_LISTER";
     }
 
     public function setUpDs() {
-        $ds = new CommunicationsDataSource();
+        $ds = new CommunicationActorsDataSource();
         $this->setDataSource( $ds->build() );
     }
 }

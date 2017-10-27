@@ -14,6 +14,7 @@ namespace Eulogix\Cool\Bundle\CommunicationsBundle\CWidget;
 use Eulogix\Cool\Bundle\CommunicationsBundle\Lib\DataSource\CommunicationsDataSource;
 use Eulogix\Cool\Lib\Cool;
 use Eulogix\Cool\Lib\Form\DSCRUDForm;
+use Eulogix\Cool\Lib\Widget\WidgetSlot;
 
 /**
  * @author Pietro Baricco <pietro@eulogix.com>
@@ -43,4 +44,39 @@ class CommunicationEditorForm extends DSCRUDForm  {
         $this->setDataSource( $ds->build() );
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function build() {
+        parent::build();
+
+        $schema =  Cool::getInstance()->getSchema('communications')->getName();
+        $actualSchema = Cool::getInstance()->getSchema('communications')->getCurrentSchema();
+        $dsRecord = $this->getDSRecord();
+
+        if(!$dsRecord->isNew()) {
+
+            $pk = $dsRecord->get('communication_id');
+            $filter = json_encode([ 'communication_id' => $pk ]);
+
+            $this->setSlot("Actors", new WidgetSlot("EulogixCoolCommunications/CommunicationActorsLister", [
+                'schema'=> $actualSchema,
+                '_filter'=>$filter]));
+
+            $this->setSlot("Files", new WidgetSlot("Eulogix/Cool/Lib/File/FileRepositoryBrowser", [
+                'repositoryId'=>'schema',
+                'schema'=>$schema,
+                'actualSchema'=>$actualSchema,
+                'table'=>'communication',
+                'pk'=>$pk
+            ],[
+                'cssHeight'=>'100%',
+                'treePaneVisible'=>false,
+                'defaultView'=>'list'
+            ]), "Files");
+
+        }
+
+        return $this;
+    }
 }

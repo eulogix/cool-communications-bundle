@@ -11,15 +11,15 @@
 
 namespace Eulogix\Cool\Bundle\CommunicationsBundle\CWidget;
 
+use Eulogix\Cool\Bundle\CommunicationsBundle\Lib\DataSource\CommunicationActorsDataSource;
+use Eulogix\Cool\Lib\Cool;
+use Eulogix\Cool\Lib\Form\DSCRUDForm;
+
 /**
  * @author Pietro Baricco <pietro@eulogix.com>
  */
 
-use Eulogix\Cool\Bundle\CommunicationsBundle\Lib\DataSource\CommunicationsDataSource;
-use Eulogix\Cool\Lib\Cool;
-use Eulogix\Cool\Lib\Lister\Lister;
-
-class CommunicationsLister extends Lister {
+class CommunicationActorEditorForm extends DSCRUDForm  {
 
     public function __construct($parameters = [])
     {
@@ -31,25 +31,15 @@ class CommunicationsLister extends Lister {
         $this->setUpDs();
     }
 
-    public function getDefaultEditorServerId() {
-        return 'EulogixCoolCommunications/CommunicationEditorForm';
-    }
-
-    public function build() {
-        parent::build();
-        $this->addAction('newItem')->setOnClick("widget.openNewRecordEditor();");
-        return $this;
-    }
-
     /**
      * @inheritdoc
      */
     public function getId() {
-        return "COOL_COMMUNICATIONS_LISTER";
+        return "COOL_COMMUNICATION_ACTOR_EDITOR";
     }
 
     public function setUpDs() {
-        $ds = new CommunicationsDataSource();
+        $ds = new CommunicationActorsDataSource();
         $this->setDataSource( $ds->build() );
     }
 }
