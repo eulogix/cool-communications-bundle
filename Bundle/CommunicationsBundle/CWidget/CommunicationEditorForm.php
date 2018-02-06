@@ -61,7 +61,7 @@ class CommunicationEditorForm extends DSCRUDForm  {
 
             $this->setSlot("Actors", new WidgetSlot("EulogixCoolCommunications/CommunicationActorsLister", [
                 'schema'=> $actualSchema,
-                '_filter'=>$filter]));
+                '_filter'=>$filter]), "Actors");
 
             $this->setSlot("Files", new WidgetSlot("Eulogix/Cool/Lib/File/FileRepositoryBrowser", [
                 'repositoryId'=>'schema',
