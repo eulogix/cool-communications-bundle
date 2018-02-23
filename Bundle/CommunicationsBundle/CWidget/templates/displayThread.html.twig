@@ -1,0 +1,48 @@
+<!-- TODO move to css -->
+    {% for message in lastMessage.getFullThread() %}
+
+        <table class="threadMessage">
+            <tr>
+                <td class="avatarTd">
+                    <img class="messageAvatar" src="/reels/gfx/usercp/nouser.png" width="50">
+                </td>
+                <td class="detailsTd">
+                    <div class="messageSender">{{ message.sender.getEmail() }}{% if message.sender.getName() %} <b>({{ message.sender.getName() }})</b>{% endif %}</div>
+                    <div class="messageRecipientList">
+                        {{ "TO"|t }}
+
+                        {% for recipient in message.object.getRecipients() %}
+                            {{ recipient.getEmail() }}
+                            {% if recipient.getName() %} <b>({{ recipient.getName() }})</b>{% endif %}
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="rightDetailsTd">
+                    {{ message.creation_date|format_date({format:'hi'}) }}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="messageTd" colspan="2">
+                    {{ message.body|raw }}
+                </td>
+            </tr>
+
+            {% if message.attachments|length > 0 %}
+                <tr>
+                    <td></td>
+                    <td class="fileSectionTd" colspan="2">
+                        {% for file in message.attachments %}
+                            <div class="fileBox"
+                                 onclick="COOL.repoFromId('schema', {actualSchema: '{{ serverAttributes.actualSchema }}'}).previewOrDownload( JSON.parse('{{ file.getArray()|json_encode|e('js') }}') );">
+                                <img src="/bundles/eulogixcoolcore/res/format/{{ file.getExtension() }}.png" style="vertical-align: middle">
+                                <span style="vertical-align: middle">{{ file.getName() }}</span>
+                            </div>
+                        {% endfor %}
+                     </td>
+                </tr>
+            {% endif %}
+        </table>
+
+    {% endfor %}

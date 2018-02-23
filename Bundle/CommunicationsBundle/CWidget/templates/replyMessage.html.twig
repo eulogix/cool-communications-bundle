@@ -1,0 +1,33 @@
+<table class="threadMessage" style="margin-top:20px">
+    <tr>
+        <td class="avatarTd">
+            <img class="messageAvatar" src="/reels/gfx/usercp/nouser.png" width="50">
+        </td>
+        <td class="detailsTd">
+            <div class="messageSender">{{ serverAttributes.authorUser.getAccountId()|decodeUser }}</div>
+            <div class="messageRecipientList">
+                To: {{ serverAttributes.lastMessage.getSender().getEmail() }}<br>
+                <FIELDS>
+                    to_emails:100%
+                </FIELDS>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="messageTd">
+            <FIELDS>
+                reply_subject:100%@!
+                reply_body:100%:200px@!
+                attachments:200
+            </FIELDS>
+            <FIELDS>
+                reply|align=center,cancel|align=center
+            </FIELDS>
+        </td>
+    </tr>
+</table>
+
+<div id="{{ serverAttributes.randomId }}"></div>
+
+

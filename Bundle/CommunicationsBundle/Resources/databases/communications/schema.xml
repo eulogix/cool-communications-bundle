@@ -21,6 +21,8 @@
 
         <column name="communication_id" type="INTEGER" primaryKey="true" autoIncrement="true"/>
 
+        <column name="thread_communication_id" type="INTEGER"/>
+
         <column name="category" type="LONGVARCHAR">
             <_lookup type="enum" validValues="EMAIL,LETTER,SMS,FAX,OTHER"></_lookup>
             <_control type="select"></_control>
@@ -37,8 +39,7 @@
             <_control type="textarea"></_control>
         </column>
 
-        <column name="sent_date" type="TIMESTAMP"/>
-        <column name="received_date" type="TIMESTAMP"/>
+        <column name="communication_date" type="TIMESTAMP"/>
 
         <column name="transmission_method" type="LONGVARCHAR"
                 description="communication logs such as emails, phonecalls, log their nature here">
@@ -51,7 +52,26 @@
 
         <column name="inbound_flag" type="BOOLEAN" required="true" default="FALSE"/>
 
+        <foreign-key foreignTable="communication" onDelete="cascade">
+            <reference local="thread_communication_id" foreign="communication_id"/>
+        </foreign-key>
+
+        <_files>
+            <category name="ATTACHMENT" default="true"/>
+        </_files>
+
         <behavior name="extendable"/>
+
+        <_trigger name="CU" when="BEFORE INSERT OR UPDATE" language="plpgsql">
+            <![CDATA[
+                IF(TG_OP='INSERT' AND NEW.thread_communication_id IS NULL) THEN
+                    NEW.thread_communication_id = NEW.communication_id;
+                END IF;
+
+                RETURN NEW;
+            ]]>
+        </_trigger>
+
     </table>
 
     <table name="communication_actor"

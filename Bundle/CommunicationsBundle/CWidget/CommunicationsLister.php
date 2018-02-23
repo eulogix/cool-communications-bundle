@@ -15,6 +15,7 @@ namespace Eulogix\Cool\Bundle\CommunicationsBundle\CWidget;
  * @author Pietro Baricco <pietro@eulogix.com>
  */
 
+use Eulogix\AppModules\Communications\Communication;
 use Eulogix\Cool\Bundle\CommunicationsBundle\Lib\DataSource\CommunicationsDataSource;
 use Eulogix\Cool\Lib\Cool;
 use Eulogix\Cool\Lib\Lister\Lister;
@@ -25,7 +26,7 @@ class CommunicationsLister extends Lister {
     {
         parent::__construct($parameters);
 
-        if($schema = @$parameters['schema'])
+        if($schema = $this->getSchemaName())
             Cool::getInstance()->getSchema('communications')->setCurrentSchema($schema);
 
         $this->setUpDs();
@@ -36,8 +37,16 @@ class CommunicationsLister extends Lister {
     }
 
     public function build() {
+        $this->setHasVariableEditorServerId(true);
         parent::build();
-        $this->addAction('newItem')->setOnClick("widget.openNewRecordEditor();");
+
+        $this->setInitialSort([
+            'communication_date' => self::SORT_DESC,
+            'communication_id' => self::SORT_DESC
+        ]);
+
+        $this->addAction('new Email')->setOnClick("var d = COOL.getDialogManager().openWidgetDialog('EulogixCoolCommunications/NewEmailWizard', 'new Email', { schema:'{$this->getSchemaName()}' }, function() { widget.reloadRows(); } ); d.set('dimensions', [400, 200]); d.resize();");
+
         return $this;
     }
 
@@ -51,5 +60,19 @@ class CommunicationsLister extends Lister {
     public function setUpDs() {
         $ds = new CommunicationsDataSource();
         $this->setDataSource( $ds->build() );
+    }
+
+    public function getEditorServerId($editorWidgetParameters=null, $rowData=null) {
+        switch(@$rowData['category']) {
+            case Communication::CATEGORY_EMAIL : return 'EulogixCoolCommunications/EmailEditorForm';
+        }
+        return $this->getDefaultEditorServerId();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSchemaName() {
+        return $this->getParameters()->get('schema');
     }
 }

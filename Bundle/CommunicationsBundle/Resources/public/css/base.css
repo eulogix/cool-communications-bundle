@@ -1,0 +1,78 @@
+
+.coolCommunications .unreadMessagesRow { }
+.coolCommunications .unreadMessagesCell {
+    font-weight: bold;
+}
+
+.coolCommunications .readMessagesRow {
+
+}
+.coolCommunications .readMessagesCell {
+    background-color: rgba(100,100,100,0.1);
+}
+
+.coolCommunications .threadMessage {
+    border-bottom: 1px solid #D8D8D8;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.coolCommunications .avatarTd {
+    width: 50px;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.coolCommunications .messageAvatar {
+    border:1px solid #D8D8D8;
+    width: 50px;
+    height: 50px;
+}
+
+.coolCommunications .messageSender {
+    font-weight: bold;
+    font-size: 130%;
+    margin-bottom: 5px;
+}
+
+.coolCommunications .messageRecipientList {
+    font-size: 110%;
+    color: #555555;
+}
+
+.coolCommunications .messageTd {
+    padding-bottom: 10px;
+}
+
+.coolCommunications .detailsTd {
+    padding-top: 10px;
+    vertical-align: top;
+}
+
+.coolCommunications .rightDetailsTd {
+    padding-top: 10px;
+    padding-right: 10px;
+    vertical-align: top;
+    width: 120px;
+    text-align: right;
+}
+
+.coolCommunications .fileSectionTd {
+    border-top:1px solid #D8D8D8;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.coolCommunications .fileBox {
+    padding: 5px;
+    margin-right: 10px;
+    border:1px solid #c5c5c5;
+    background-color: #ededed;
+    float: left;
+    cursor: hand;
+    border-radius: 3px;
+}
+
+.coolCommunications .fileBox:hover {
+    background-color: #DCEEFF;
+}

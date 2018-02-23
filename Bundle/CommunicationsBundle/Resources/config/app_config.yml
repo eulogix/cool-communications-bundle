@@ -4,3 +4,9 @@ eulogix_cool_core:
     schemas:
         communications:
             namespace:  "\\Eulogix\\AppModules\\Communications"
+
+# Twig Configuration
+twig:
+    paths:
+        "%kernel.root_dir%/../vendor/eulogix/cool-communications-bundle/Bundle/CommunicationsBundle/CWidget": CoolCommunicationsWidgets
+
