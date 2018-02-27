@@ -32,14 +32,6 @@ class NewEmailWizard extends Form  {
     }
 
     /**
-     * override to provide a default selectable list of recipients
-     * @return ValueMapInterface|null
-     */
-    public function getRecipientsValueMap() {
-
-    }
-
-    /**
      * @inheritdoc
      */
     public function build() {
@@ -102,6 +94,11 @@ class NewEmailWizard extends Form  {
             $email->setSubject( $parameters['subject'] )
                 ->setBody( $parameters['body'] );
 
+            if($recipients = $this->getField('recipients')) {
+                foreach($recipients->getValue() as $customRecipient)
+                    $this->addCustomRecipientToEmail($email, $customRecipient);
+            }
+
             $toEmails = EmailUtils::extractAllValidEmailAddressesFrom( $parameters['to_emails'] );
             foreach($toEmails as $recipientEmail) {
                 $email->addRecipient($recipientEmail);
@@ -146,4 +143,18 @@ class NewEmailWizard extends Form  {
     protected function getSchemaName() {
         return $this->getParameters()->get('schema');
     }
+
+    /**
+     * override to provide a default selectable list of recipients
+     * @return ValueMapInterface|null
+     */
+    public function getRecipientsValueMap() {}
+
+    /**
+     * implement this to add custom recipients
+     * @param EmailCommunication $email
+     * @param string $customRecipient
+     */
+    protected function addCustomRecipientToEmail(EmailCommunication $email, $customRecipient) {}
+
 }

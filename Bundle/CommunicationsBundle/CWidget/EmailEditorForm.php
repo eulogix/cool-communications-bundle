@@ -106,8 +106,8 @@ class EmailEditorForm extends DSCRUDForm  {
 
                 $email->addRecipient($lastMessage->getSender()->getEmail());
 
-                $additionalRecipients = EmailUtils::extractAllValidEmailAddressesFrom( $parameters['to_emails'] );
-                foreach($additionalRecipients as $recipientEmail) {
+                $toEmails = EmailUtils::extractAllValidEmailAddressesFrom( $parameters['to_emails'] );
+                foreach($toEmails as $recipientEmail) {
                     $email->addRecipient($recipientEmail);
                 }
 
