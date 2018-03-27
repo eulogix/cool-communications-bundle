@@ -24,7 +24,6 @@ use Eulogix\Cool\Lib\DataSource\CoolValueMap;
 use Eulogix\Cool\Lib\Form\DSCRUDForm;
 use Eulogix\Cool\Lib\Form\Field\FieldInterface;
 use Eulogix\Lib\Email\EmailUtils;
-use Eulogix\Reels\Lib\Reels;
 
 class EmailEditorForm extends DSCRUDForm  {
 
@@ -90,7 +89,7 @@ class EmailEditorForm extends DSCRUDForm  {
 
         if( $this->validate()) {
 
-            $connection = Reels::getReelsSchema()->getConnection();
+            $connection = Cool::getInstance()->getSchema('communications')->getConnection();
             $connection->beginTransaction();
 
             try {
